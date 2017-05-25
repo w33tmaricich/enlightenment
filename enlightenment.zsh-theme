@@ -13,7 +13,7 @@ JS_PROJ=" ⬡"
 UN_PROJ="⛬"
 TF_SYMB="↳"
 
-ENL_EXEC_TIME_SECONDS=5
+ENL_EXEC_TIME_ELAPSED=5
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[green]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[green]%}]%{$reset_color%}"
@@ -32,6 +32,25 @@ function displaytime {
   [[ $H > 0 ]] && printf '%dh' $H
   [[ $M > 0 ]] && printf '%dm' $M
   printf '%ds' $S
+}
+
+preexec() {
+  cmd_timestamp=`date +%s`
+}
+
+precmd() {
+  local stop=`date +%s`
+  local start=${cmd_timestamp:-$stop}
+  let ENL_last_exec_duration=$stop-$start
+  cmd_timestamp=''
+}
+
+function _time_display() {
+  if [ $ENL_last_exec_duration -gt $ENL_EXEC_TIME_ELAPSED ]; then
+    echo "◀%{$bg[yellow]%}%{$fg[black]%} $(displaytime $ENL_last_exec_duration) %{$reset_color%}▶"
+  else
+    echo ''
+  fi
 }
 
 function _in_repo() {
@@ -124,7 +143,7 @@ function _vi_mode() {
   echo "${${KEYMAP/vicmd/$NORMAL_MODE}/(main|viins)/}"
 }
 
-PROMPT='%{$fg[cyan]%}$(_vi_mode)$UN_PROJ%{$reset_color%} %{$fg[yellow]%}%1~$(_path_color)%{$reset_color%}%{$fg[cyan]%}%{$reset_color%}
+PROMPT='%{$fg[cyan]%}$(_vi_mode)$UN_PROJ%{$reset_color%} %{$fg[yellow]%}%1~%{$reset_color%} $(_time_display)
  %{$fg[cyan]%}$TF_SYMB %{$reset_color%}'
 
 RPROMPT='$(_clj_info)$(_py_info)$(_js_info) $(git_prompt_info)%'
