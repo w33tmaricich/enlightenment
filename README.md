@@ -10,9 +10,8 @@
  - Display the number of seconds it took for the last command to execute if it
    takes longer than 5 seconds.
 
-## Images
+## Installation
 
-Here is an image that dispalys both the time it took to run a command as well as
-how it looks when the terminal is in normal mode, instead of insert.
-
-![alt text](screenshots/enlightenment2.png "Vi mode and time to execute")
+```bash
+cp enlightenment.zsh-theme ~/.oh-my-zsh/custom/themes
+```
