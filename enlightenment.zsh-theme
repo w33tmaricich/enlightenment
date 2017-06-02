@@ -85,7 +85,7 @@ function _clj_version() {
   if $(_in_repo); then
     # And we see a project.clj file.
     if $(find project.clj >/dev/null 2>&1); then
-      echo "" $(cat project.clj | grep org.clojure/clojure\ | awk '{ print $3 }' | sed s/\"//g | sed s/\]//g)
+      echo "" $(cat project.clj | grep org.clojure/clojure\ | awk '{ print $3 }' | sed s/\"//g | sed s/[\]\)]//g)
     else
       echo ''
     fi
