@@ -10,8 +10,8 @@ PY_PROJ=" 🐍"
 JVA_PROJ=" ☕"
 JS_PROJ=" ⬡"
 #UN_PROJ="⛤"
-UN_PROJ="⛬"
-TF_SYMB="↳"
+UN_PROJ="◑"
+TF_SYMB="↳ "
 
 ENL_EXEC_TIME_ELAPSED=5
 
