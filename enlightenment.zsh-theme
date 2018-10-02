@@ -6,12 +6,11 @@
 #  - None yet.
 
 CLJ_PROJ=" λ"
-PY_PROJ=" 🐍"
+PY_PROJ=" P "
 JVA_PROJ=" ☕"
 JS_PROJ=" ⬡"
-#UN_PROJ="⛤"
 UN_PROJ="◑"
-TF_SYMB="↳ "
+TF_SYMB=" ↳ "
 
 ENL_EXEC_TIME_ELAPSED=5
 
@@ -85,7 +84,7 @@ function _clj_version() {
   if $(_in_repo); then
     # And we see a project.clj file.
     if $(find project.clj >/dev/null 2>&1); then
-      echo "" $(cat project.clj | grep org.clojure/clojure\ | awk '{ print $3 }' | sed s/\"//g | sed s/[\]\)]//g)
+      echo "" $(cat project.clj | grep org.clojure/clojure\ | awk '{ print $3 }' | sed s/\"//g | sed s/]//g)
     else
       echo ''
     fi
@@ -99,7 +98,7 @@ function _py_version() {
   if $(_in_repo); then
     # And we see a project.clj file.
     if $(find *.py >/dev/null 2>&1); then
-      echo "" $(python -c 'import sys; print(sys.version_info[:])' | sed s/\(//g | sed s/,\ /./g | sed s/\)//g | sed s/[a-z]//g | sed s/\'//g | sed s/\\.\\././g)
+      echo "" $(python -c 'import sys; print(sys.version_info[:])' | sed s/\(//g | sed s/,\ /./g | sed s/\)//g)
     else
       echo ''
     fi
@@ -130,7 +129,7 @@ function _clj_info() {
 }
 
 function _py_info() {
-  # If lein is installed, show lambda.
+  # If python is installed, show snake.
   if $(type python >/dev/null 2>&1); then
     echo "%{$fg[yellow]%}$PY_PROJ$(_py_version)%{$reset_color%}"
   else
@@ -143,7 +142,11 @@ function _vi_mode() {
   echo "${${KEYMAP/vicmd/$NORMAL_MODE}/(main|viins)/}"
 }
 
-PROMPT='%{$fg[cyan]%}$(_vi_mode)$UN_PROJ%{$reset_color%} %{$fg[yellow]%}%1~%{$reset_color%} $(_time_display)
- %{$fg[cyan]%}$TF_SYMB %{$reset_color%}'
+PROMPT=$'
+%{%{$fg[cyan]%}$(_vi_mode)$UN_PROJ%{$reset_color%} %{$fg[yellow]%}%1~%{$reset_color%} $(git_prompt_info) $(_time_display)\n%}%{$fg[cyan]%}$TF_SYMB%{$reset_color%}'
 
-RPROMPT='$(_clj_info)$(_py_info)$(_js_info) $(git_prompt_info)%'
+#RPROMPT='$(_clj_info)$(_py_info)$(_js_info)%'
+# TODO: There seems to be a multiline issue with the rprompt.
+#RPROMPT='$(_clj_info)$(_js_info)$(git_prompt_info)'
+
+export LC_CTYPE=en_US.UTF-8
