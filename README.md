@@ -1,17 +1,19 @@
 # Enlightenment - Oh My Zsh Theme
 
+Screenshot is no longer accurate. Will update with new screenshot soon.
 ![alt text](screenshots/enlightenment.png "Default behavior")
 
 ## Features
  - Displays git branch and clean/dirty indicator.
  - Prefix symbol changes colors depending on what mode you are in (vi mode)
- - Display software versions EG: python 2.7.12 / clojure 1.9.0-alpha15
- - Symbols appear letting you know you have lein, python, and nvm installed.
+ - Symbols appear letting you know you have lein and python installed.
  - Display the number of seconds it took for the last command to execute if it
    takes longer than 5 seconds.
 
 ## Installation
 
+Copy or symlink.
 ```bash
 cp enlightenment.zsh-theme ~/.oh-my-zsh/custom/themes
+ln -s /path/to/enlightenment.zsh-theme ~/.oh-my-zsh/custom/themes
 ```

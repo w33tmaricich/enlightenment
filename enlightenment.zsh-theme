@@ -5,11 +5,11 @@
 # Python features:
 #  - None yet.
 
-CLJ_PROJ=" λ"
-PY_PROJ=" P "
+CLJ_PROJ="λ "
+PY_PROJ="⟳ "
 JVA_PROJ=" ☕"
 JS_PROJ=" ⬡"
-UN_PROJ="◑"
+UN_PROJ="☯"
 TF_SYMB=" ↳ "
 
 ENL_EXEC_TIME_ELAPSED=5
@@ -85,6 +85,7 @@ function _clj_version() {
     # And we see a project.clj file.
     if $(find project.clj >/dev/null 2>&1); then
       echo "" $(cat project.clj | grep org.clojure/clojure\ | awk '{ print $3 }' | sed s/\"//g | sed s/]//g)
+      #echo "" $(cat project.clj | grep org.clojure/clojure\ | awk '{ print $3 }' | sed s/[][\"\)]//g )
     else
       echo ''
     fi
@@ -107,31 +108,10 @@ function _py_version() {
   fi
 }
 
-function _proj() {
-}
-
 function _js_info() {
   # If lein is installed, show lambda.
   if $(type nvm >/dev/null 2>&1); then
     echo "%{$fg[yellow]%}$JS_PROJ$(_node_version)%{$reset_color%}"
-  else
-    echo ''
-  fi
-}
-
-function _clj_info() {
-  # If lein is installed, show lambda.
-  if $(type lein >/dev/null 2>&1); then
-    echo "%{$fg[yellow]%}$CLJ_PROJ$(_clj_version)%{$reset_color%}"
-  else
-    echo ''
-  fi
-}
-
-function _py_info() {
-  # If python is installed, show snake.
-  if $(type python >/dev/null 2>&1); then
-    echo "%{$fg[yellow]%}$PY_PROJ$(_py_version)%{$reset_color%}"
   else
     echo ''
   fi
@@ -142,11 +122,28 @@ function _vi_mode() {
   echo "${${KEYMAP/vicmd/$NORMAL_MODE}/(main|viins)/}"
 }
 
-PROMPT=$'
-%{%{$fg[cyan]%}$(_vi_mode)$UN_PROJ%{$reset_color%} %{$fg[yellow]%}%1~%{$reset_color%} $(git_prompt_info) $(_time_display)\n%}%{$fg[cyan]%}$TF_SYMB%{$reset_color%}'
+function _create_rprompt() {
+  OPENSTR='[ '
+  CLJSTR=''
+  PYSTR=''
+  CLOSESTR=']'
 
-#RPROMPT='$(_clj_info)$(_py_info)$(_js_info)%'
-# TODO: There seems to be a multiline issue with the rprompt.
-#RPROMPT='$(_clj_info)$(_js_info)$(git_prompt_info)'
+  # If lein is installed, show lambda.
+  if $(type lein >/dev/null 2>&1); then
+    CLJSTR="%{$fg[yellow]%}$CLJ_PROJ$(_clj_version)%{$reset_color%}"
+  fi
+
+  # If python is installed, show snake.
+  if $(type python >/dev/null 2>&1); then
+    PYSTR="%{$fg[green]%}$PY_PROJ$(_py_version)%{$reset_color%}"
+  fi
+
+  (){ print -l "$*" } $OPENSTR$CLJSTR$PYSTR$CLOSESTR
+}
+
+PROMPT=$'
+%{%{$fg[white]%}$(_vi_mode)$UN_PROJ%{$reset_color%} %{$fg[yellow]%}%1~%{$reset_color%} $(git_prompt_info) $(_time_display)\n%}%{$fg[cyan]%}$TF_SYMB%{$reset_color%}'
+
+RPROMPT="$(_create_rprompt)"
 
 export LC_CTYPE=en_US.UTF-8
