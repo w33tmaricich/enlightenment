@@ -9,8 +9,8 @@ CLJ_PROJ="λ "
 PY_PROJ="⟳ "
 JVA_PROJ=" ☕"
 JS_PROJ=" ⬡"
-UN_PROJ="☯"
-TF_SYMB=" ↳ "
+UN_PROJ=" ☯"
+TF_SYMB="  ↳ "
 
 ENL_EXEC_TIME_ELAPSED=5
 
@@ -130,12 +130,14 @@ function _create_rprompt() {
 
   # If lein is installed, show lambda.
   if $(type lein >/dev/null 2>&1); then
-    CLJSTR="%{$fg[yellow]%}$CLJ_PROJ$(_clj_version)%{$reset_color%}"
+    #CLJSTR="%{$fg[yellow]%}$CLJ_PROJ$(_clj_version)%{$reset_color%}"
+    CLJSTR="%{$fg[yellow]%}$CLJ_PROJ%{$reset_color%}"
   fi
 
   # If python is installed, show snake.
   if $(type python >/dev/null 2>&1); then
-    PYSTR="%{$fg[green]%}$PY_PROJ$(_py_version)%{$reset_color%}"
+    #PYSTR="%{$fg[green]%}$PY_PROJ$(_py_version)%{$reset_color%}"
+    #PYSTR="%{$fg[green]%}$PY_PROJ%{$reset_color%}"
   fi
 
   (){ print -l "$*" } $OPENSTR$CLJSTR$PYSTR$CLOSESTR

@@ -1,7 +1,6 @@
 # Enlightenment - Oh My Zsh Theme
 
-Screenshot is no longer accurate. Will update with new screenshot soon.
-![alt text](screenshots/enlightenment.png "Default behavior")
+![alt text](screenshots/enlightenment3.png "Default behavior")
 
 ## Features
  - Displays git branch and clean/dirty indicator.
