@@ -137,7 +137,7 @@ function _create_rprompt() {
   # If python is installed, show snake.
   if $(type python >/dev/null 2>&1); then
     #PYSTR="%{$fg[green]%}$PY_PROJ$(_py_version)%{$reset_color%}"
-    #PYSTR="%{$fg[green]%}$PY_PROJ%{$reset_color%}"
+    PYSTR="%{$fg[green]%}$PY_PROJ%{$reset_color%}"
   fi
 
   (){ print -l "$*" } $OPENSTR$CLJSTR$PYSTR$CLOSESTR
