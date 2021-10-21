@@ -123,7 +123,7 @@ function _vi_mode() {
 }
 
 function _create_rprompt() {
-  OPENSTR='[ '
+  OPENSTR='$(whoami) [ '
   CLJSTR=''
   PYSTR=''
   CLOSESTR=']'
@@ -144,7 +144,7 @@ function _create_rprompt() {
 }
 
 PROMPT=$'
-%{%{$fg[white]%}$(_vi_mode)$UN_PROJ%{$reset_color%} %{$fg[yellow]%}%1~%{$reset_color%} $(git_prompt_info) $(_time_display)\n%}%{$fg[cyan]%}$TF_SYMB%{$reset_color%}'
+%{%{$fg[white]%}$(_vi_mode)$UN_PROJ $(hostname)%{$reset_color%} %{$fg[yellow]%}%1~%{$reset_color%} $(git_prompt_info) $(_time_display)\n%}%{$fg[cyan]%}$TF_SYMB%{$reset_color%}'
 
 RPROMPT="$(_create_rprompt)"
 
